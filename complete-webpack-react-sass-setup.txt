@@ -1,0 +1,47 @@
+//BASIC FOLDER STRUCTURE:
+root/
+node_modules/
+package.json
+yarn.lock
+babelrc.js
+webpack.common-config.js
+webpack.dev-config.js
+webpack.prod-config.js
+----/sourcecode-folder/
+----------------------/main-html-template.html
+----------------------/js/  (can have multiple subfolders)
+-------------------------/mainjs-entrypoint.js
+-------------------------/vendorjs-entrypoint.js (optional --needed when we don't want 3rd party code/libraries to be mixed up with our code--)
+-------------------------/all .js files
+----------------------/css-scss/    (can have multiple subfolders)
+---------------------------/all .css or .scss files 
+----------------------/assets/
+-----------------------------/any asset files like images, svgs, favicons, etc
+
+-----------------------------------------------------------------
+
+//CREATE YARN PROJECT AND BASIC FILES:
+1.yarn init -y
+
+//START INSTALLING DEPENDENCIES:
+2.yarn add --dev webpack webpack-cli style-loader css-loader sass-loader node-sass html-webpack-plugin webpack-merge webpack-dev-server html-loader file-loader mini-css-extract-plugin babel-loader @babel/core @babel/preset-react @babel/preset-env
+This (--step 2--) installs:
+    - webpack and webpack-cli (both must always be installed together)
+    - style-loader (this loader takes bundled css as javascript and injects it in the DOM --it's what react projects usually use ->NO SPITTING CSS FILE!--)
+    - css-loader (this loader bundles css as valid javascript object)
+    - sass-loader and node-sass (both must always be installed together, --sass-loader turns sass files into valid css, so the css-loader can then turn it into valid js--)
+    - html-webpack-plugin (to dinamically create html file in production folder, such file is based on an html template we define in the sourcecode-folder, --specially useful for automatically import entrypoint <scripts> and <links> into html when cache busting--)
+    - webpack-merge (to merge webpack configuration files --like, when we have one config file in common, but they need some differences for development and production--)
+    - webpack-dev-server (to work with development server --avoid rebundling and dynamically create folder and files--)
+    - html-loader (to work with relative paths of src attributes on our template, and not have to worry about their production path when it comes to images --it requires such files into js, but by itself alone webpack doesn't know how to handle required image files, that's why it need file-loader--)
+    - file-loader (to resolve the relative paths of src attributes on our template, so the html-loader can dynamically create and add those files into the bundled project)
+    - mini-css-extract-plugin (to, instead of injecting the css into the DOM, just creates a css file that'll be included inside the production folder and delivered by the server --this could be used insted of react's default--)
+    - babel-loader and @babel/core (both must always be installed together)
+    - @babel/preset-react (This allows conversion of jsx to plain javascript)
+    - @babel/preset-env (This allows support for ES2015 (ES6) features)
+
+3.yarn add clean-webpack-plugin react react-dom
+This (--step 3--) installs:
+    - clean-webpack-plugin (to delete the production directory every time we build and avoid having 2 different versions of the same file --usually when working with cache busting--)
+    (NOTE: UP TO THIS POINT, IT'S JUST A REGULAR "VANILLA" WEB APP)
+    - react and react-dom (libraries, --react-dom not necessary when working with native--)

@@ -1,0 +1,13 @@
+* {
+	box-sizing: border-box;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	background-image: linear-gradient(45deg, $testColor, transparent);
+}
+
+h1 {
+	color: #7e5ce6;
+}
