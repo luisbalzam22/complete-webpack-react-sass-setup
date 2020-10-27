@@ -3,11 +3,13 @@ const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common-config.js');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const root = process.env.NODE_ENV === 'production' ? '/' : __dirname;
 module.exports = merge(commonConfig, {
 	mode: 'production',
 	output: {
-		filename: '[name]-bundled-[contentHash].js', //the [content] is used for Cash Busting
+		filename: '[name]-bundled-[contentHash].js', //the [contentHash] is used for Cache Busting
 		path: path.resolve(__dirname, 'production-root-folder'),
+		publicPath: '/',
 	},
 	plugins: [
 		new CleanWebpackPlugin(),

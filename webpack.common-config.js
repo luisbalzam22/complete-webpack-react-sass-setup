@@ -2,8 +2,18 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
 	entry: {
-		mainjs: './sourcecode-folder/js/mainjs-entrypoint.js',
-		vendorjs: './sourcecode-folder/js/vendorjs-entrypoint.js',
+		mainjs: path.resolve(
+			__dirname,
+			'sourcecode-folder',
+			'js',
+			'mainjs-entrypoint.js'
+		),
+		vendorjs: path.resolve(
+			__dirname,
+			'sourcecode-folder',
+			'js',
+			'vendorjs-entrypoint.js'
+		),
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
